@@ -1,5 +1,5 @@
 class Vehicle
-  attr_reader(:make, :model, :year, :color, :engine_size, :number_of_doors)
+  attr_reader(:make, :model, :year, :color, :engine_size, :number_of_doors, :id)
 
   @@vehicles = []
 
@@ -27,7 +27,7 @@ class Vehicle
 
   define_method(:age) do
     current_year = Time.new().year()
-    current_year.-(@year)
+    current_year.-( (@year).to_i() )
   end
 
   define_method(:worth_buying?) do
