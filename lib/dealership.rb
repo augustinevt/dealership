@@ -1,43 +1,49 @@
-class Vehicle
-  @@vehicles = []
+class Dealership
+  @@dealerships = []
 
-  define_method(:initialize) do |make, model, year|
-    @make = make
-    @model = model
-    @year = year
+  define_method(:initialize) do |name|
+    @name = name
+    @id = @@dealerships.length().+(1)
+    @cars = []
   end
 
-  define_method(:make) do
-    @make
+  define_method(:name) do
+    @name
   end
 
-  define_method(:model) do
-    @model
+  define_method(:id) do
+    @id
   end
 
-  define_method(:year) do
-    @year
+  define_method(:cars) do
+    @cars
   end
 
   define_singleton_method(:all) do
-    @@vehicles
+    @@dealerships
   end
 
   define_method(:save) do
-    @@vehicles.push(self)
+    @@dealerships.push(self)
   end
 
   define_singleton_method(:clear) do
-    @@vehicles = []
+    @@dealerships = []
   end
 
-  define_method(:age) do
-    current_year = Time.new().year()
-    current_year.-(@year)
+  define_singleton_method(:find) do |id|
+    found_dealership = nil
+    @@dealerships.each() do |dealership|
+      if dealership.id().eql?(id)
+        found_dealership = dealership
+      end
+    end
+    found_dealership
+  end
+  
+  define_method(:add_vehicle) do |vehicle|
+    @cars.push(vehicle)
   end
 
-  define_method(:worth_buying?) do
-    american_cars = ["Chrysler", "Ford", "GM"]
-    american_cars.include?(@make).&(self.age().<=(15))
-  end
+
 end
